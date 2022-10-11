@@ -26,31 +26,69 @@
 
 import itertools
 
+# Jokers will be treated as 'wild cards' which
+# can take any rank or suit of the same color.
+rank_options = ['2','3','4','5','6','7','8','9','T','J','Q','K','A']
+# The black joker, '?B', can be used as any spade (S) or club (C)
+joker_b = [''.join(i) for i in list(itertools.product(rank_options, ['S', 'C']))]
+# The red joker, '?R', can be used as any heart (H) or diamond (D)
+joker_r = [''.join(i) for i in list(itertools.product(rank_options, ['H', 'D']))]
 
+"""
+optimized solution:
+
+joker_b = [rank + suit for rank in "23456789TJQKA" for suit in ['S','C']]
+joker_r = [rank + suit for rank in "23456789TJQKA" for suit in ['H','D']]
+
+"""
+
+# How to replace the joker???
 def best_wild_hand(hand):
     "Try all values for jokers in all 5-card selections."
     # Your code here
-    #all_hands = list(itertools.combinations(hand,5))
-    joker_remove = [item for item in hand if not '?' in item]
-    rank_options = list(set([str(r) for r, s in joker_remove]))
-    for item in hand:
-        if '?B' in item:
-            joker = [''.join(i) for i in list(itertools.product(rank_options, ['S', 'C']))]
-        elif '?R' in item:
-            joker = [''.join(i) for i in list(itertools.product(rank_options, ['H', 'D']))]
-        elif '?B' and '?R' in item:
-            joker = [''.join(i) for i in list(itertools.product(rank_options,['S', 'C','H', 'D']))]
-    wild_hand = joker_remove + joker
-    return max(list(itertools.combinations(wild_hand,5)), key = hand_rank)
+    hand_no_joker =[]
+    joker = []
+    if joker_or_not(hand):
+        hand_no_joker = [[item for item in hand if not '?' in item]]
+        joker = [item for item in hand if '?' in item]
+        joker_choice = []
+        if len(joker) == 1:
+            joker_choice = [x.split() for x in joker_replace(joker)]
+        elif len(joker) == 2:
+            # all the combination of the replacement of black joker and red joker
+            joker_choice = [list(item) for item in list(itertools.product(joker_replace([joker[0]]), joker_replace([joker[1]])))]
+        # List all the combinations in nested list between hand without joker and joker replacement
+        hands_choice = [list(item) for item in list(itertools.product(hand_no_joker, joker_choice))]
+        # Merge the hand without joker and joker replacement into one new hand
+        hands_new = [a+b for a,b in hands_choice]
+        # get the best hand for each new hand
+        best_hands_list = [best_hand(hand) for hand in hands_new]
+        return max(best_hands_list, key = hand_rank)
+    return best_hand(hand)
 
-def test_best_wild_hand():
-    assert (sorted(best_wild_hand("6C 7C 8C 9C TC 5C ?B".split()))
-            == ['7C', '8C', '9C', 'JC', 'TC'])
-    assert (sorted(best_wild_hand("TD TC 5H 5C 7C ?R ?B".split()))
-            == ['7C', 'TC', 'TD', 'TH', 'TS'])
-    assert (sorted(best_wild_hand("JD TC TH 7C 7D 7S 7H".split()))
-            == ['7C', '7D', '7H', '7S', 'JD'])
-    return 'test_best_wild_hand passes'
+
+def joker_replace(card):
+    """input card (type: string list) and output the possible joker replacement"""
+    if card == ['?B']: 
+        return joker_b
+    elif card == ['?R']: 
+        return joker_r
+    else: 
+        return card
+
+def joker_or_not(hand):
+    """Boolean function to evaluate the joker
+    -has joker, return True
+    -no joker, return False
+    """
+    if '?B' in hand or '?R' in hand:
+        return True
+    return False
+
+def best_hand(hand):
+    "From a 7-card hand, return the best 5 card hand."
+    # Your code here
+    return max(list(itertools.combinations(hand,5)), key = hand_rank)
 
 
 # ------------------
@@ -120,3 +158,14 @@ def two_pair(ranks):
         return (pair, lowpair)
     else:
         return None
+
+def test_best_wild_hand():
+    assert (sorted(best_wild_hand("6C 7C 8C 9C TC 5C ?B".split()))
+            == ['7C', '8C', '9C', 'JC', 'TC'])
+    assert (sorted(best_wild_hand("TD TC 5H 5C 7C ?R ?B".split()))
+            == ['7C', 'TC', 'TD', 'TH', 'TS'])
+    assert (sorted(best_wild_hand("JD TC TH 7C 7D 7S 7H".split()))
+            == ['7C', '7D', '7H', '7S', 'JD'])
+    return 'test_best_wild_hand passes'
+
+print(test_best_wild_hand())
