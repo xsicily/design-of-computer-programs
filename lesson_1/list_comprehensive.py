@@ -10,6 +10,21 @@
 #           'Job is the TA for CS387']
 
 # example 1:
+udacity_tas = ['peter', 'andy','sarah','gundega','job','sean']
+bad_uppercase_tas = []
+for i in range(len(udacity_tas)):
+    bad_uppercase_tas.append(udacity_tas[i].upper())
+
+print(bad_uppercase_tas)
+
+# optimized solution
+uppercase_tas = [name.upper() for name in udacity_tas]
+print(uppercase_tas)
+
+for name in uppercase_tas:
+    print(name)
+
+# example 2:
 ta_data = [['Peter', 'USA', 'CS262'],
            ['Andy', 'USA', 'CS212'],
            ['Sarah', 'England', 'CS101'],
@@ -23,7 +38,7 @@ ta_facts = [name + ' lives in ' + country + ' and is the TA for ' +
 for row in ta_facts:
     print(row)
 
-# example 2:
+# example 3:
 remote_ta_facts = [name + ' lives in ' + country + ' and is the TA for ' +
             course for name, country, course in ta_data if country != 'USA']
 
