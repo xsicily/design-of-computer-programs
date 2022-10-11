@@ -165,6 +165,7 @@ def hand_rank(hand):
 
 
 """
+optimized solution:
 def hand_rank(hand):
     # Return a value indicating how high the hand ranks
     # counts is the count of each rank; ranks lists corresponding ranks
@@ -189,6 +190,7 @@ def hand_rank(hand):
 
 
 """
+optimized solution
 count_rankings = {(5,):10, (4, 1):7, (3, 2):6, (3, 1, 1):3, (2, 2, 1):2,
                 (2, 1, 1, 1):1, (1, 1, 1, 1, 1):0}
 def hand_rank(hand):
@@ -248,6 +250,17 @@ def deal(numhands, n=5, deck=my_deck):
             player_hands[player].append(deck.pop())
     return player_hands
 
+"""
+optimized solution:
+def deal(numhands, n, deck = [r+s for r in '23456789TJQKA' for s in 'SHDC']):
+    "Shuffle the deck and deal out numhands n-card hands"
+    # n: number of cards
+    # numhands: number of players
+    random.shuffle(deck)
+    return [deck[n*i:n*(i+1)] for i in range(numhands)] # take cards in sequential
+
+print(deal(2,7))
+"""
 hand_names = ["Straight Flush", "4 kind", "Full House", "Flush",
               "Straight", "3 kind", "2 pair", "Pair", "high card"]
 
