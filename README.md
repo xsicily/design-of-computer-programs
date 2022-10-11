@@ -1,6 +1,6 @@
 # Design-of-computer-programs
 
-This repository keeps study records of Udacity free course "Design of computer programs" (https://www.udacity.com/course/design-of-computer-programs--cs212) to move along the path towards becoming an expert programmer! 
+This repository keeps study records of Udacity CS212 course "Design of computer programs" (https://www.udacity.com/course/design-of-computer-programs--cs212) to move along the path towards becoming an expert programmer! 
 
 ## Course content
 1. Lesson 1: Winning poker hand
