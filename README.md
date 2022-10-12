@@ -6,7 +6,7 @@ This repository keeps study records of Udacity CS212 course "Design of computer 
 ### Lesson 1: Winning poker hand
 - Write a poker problem: define the problem, write the specs and design the code
     - Shuffle
-    - Exercise List comprehensions
+    - List comprehensions
 - Practice to solve the problems: 7-card study and wild card
 - Code design principle: correctness, efficiency, elegance
     
