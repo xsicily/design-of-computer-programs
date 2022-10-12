@@ -21,12 +21,12 @@ To solve this problem, we need to figure out how to represent hand and rank the 
 
 | Rank | Categories | Example hand |   Hand Representation   | Notes |
 | ---- | ---------- | ------------ | ------------------- | ----- |
-|  8   | Straight flush | ![straight_flush](lesson_1/img/straight_flush.jpg) | (8, 11) | different ranks and in ordered |
-|  7   | Four of a kind | ![straight_flush](lesson_1/img/four_kind.jpg) | (7, 14, 12) | four cards with same rank |
-|  6   | Full house | ![straight_flush](lesson_1/img/full_house.jpg) | (6, 8, 13) | three cards with the same rank and two cards with another same rank |
-|  5   | Flush | ![straight_flush](lesson_1/img/flush.jpg) | (5, [10, 8, 7, 5,3]) | same suits but ranks do not matter |
-|  4   | Straight | ![straight_flush](lesson_1/img/straight.jpg) | (4, 11) | consecutive ranks but suits do not matter |
-|  3   | Three of a kind | ![straight_flush](lesson_1/img/three_kind.jpg) | (3, 7, [7, 7, 7, 5, 2]) | three cards with the same rank |
-|  2   | Two pairs | ![straight_flush](lesson_1/img/two_pair.jpg) | (2, 11, 3, [13, 11, 11, 3, 3]) | two cards with the same rank and another two cards with another same rank |
-|  1   | One pair | ![straight_flush](lesson_1/img/one_pair.jpg) | (1, 2, [11,6 3, 2, 2]) | only two cards with the same rank |
-|  0   | High card | ![straight_flush](lesson_1/img/high_card.jpg) | (0, 7, 5, 4, 3, 2) | no pairs |
+|  8   | Straight flush | ![straight_flush](img/straight_flush.jpg) | (8, 11) | different ranks and in ordered |
+|  7   | Four of a kind | ![four_kind](img/four_kind.jpg) | (7, 14, 12) | four cards with same rank |
+|  6   | Full house | ![full_house](img/full_house.jpg) | (6, 8, 13) | three cards with the same rank and two cards with another same rank |
+|  5   | Flush | ![flush](img/flush.jpg) | (5, [10, 8, 7, 5,3]) | same suits but ranks do not matter |
+|  4   | Straight | ![straight](img/straight.jpg) | (4, 11) | consecutive ranks but suits do not matter |
+|  3   | Three of a kind | ![three_kind](img/three_kind.jpg) | (3, 7, [7, 7, 7, 5, 2]) | three cards with the same rank |
+|  2   | Two pairs | ![two_pair](img/two_pair.jpg) | (2, 11, 3, [13, 11, 11, 3, 3]) | two cards with the same rank and another two cards with another same rank |
+|  1   | One pair | ![one_pair](img/one_pair.jpg) | (1, 2, [11,6 3, 2, 2]) | only two cards with the same rank |
+|  0   | High card | ![high_card](img/high_card.jpg) | (0, 7, 5, 4, 3, 2) | no pairs, no sequential cards |
