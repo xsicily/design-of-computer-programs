@@ -7,7 +7,7 @@ This repository keeps study records of Udacity CS212 course "Design of computer 
 - Write a poker problem: define the problem, write the specs and design the code
     - Shuffle
     - Exercise List comprehensions
-- Practice to solve the problem: 7-card study and wild card
+- Practice to solve the problems: 7-card study and wild card
 - Code design principle: correctness, efficiency, elegance
     
 ### Lesson 2: Back of the envelop
