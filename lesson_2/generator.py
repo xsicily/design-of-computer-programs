@@ -17,8 +17,6 @@
 # Output results: next(g)
 
 # Example:
-from re import I
-
 
 def sq(x):
     print ('sq called', x)
@@ -47,6 +45,7 @@ def infinite_sequence():
         yield num
         num += 1
 """
+# Test
 L1 = ints(0, 10)
 for i in L1:
     print(i) # output: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
@@ -54,6 +53,7 @@ for i in L1:
 L1 = ints(1, 10)
 for i in L1:
     print(-i)  # output: -1, -2, -3, -4, -5, -6, -7. -8, -9, -10
+
 
 def all_ints():
     "Generate integers in the order 0, +1, -1, +2, -2, +3, -3, ..."
