@@ -13,5 +13,5 @@ This repository keeps study records of Udacity CS212 course "Design of computer 
 ### Lesson 2: Back of the envelop
 - Zebra puzzle
     - Summary: conceptualize the inventory, refine the idea, simple implementation, back envelop (simple calculation), refine the code
-    - Python: List comprehensions, generator, time measurement, star args
+    - Python: List comprehensions, generator, time measurement, star args, aspects (correct, efficient, debugging)
     - Goal: clean code
