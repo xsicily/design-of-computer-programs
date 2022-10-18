@@ -121,15 +121,14 @@ def compile_formula(formula, verbose=False):
     lambda syntax-->lambda arguments : expression
 
     """
-    letters = ''.join(set(re.findall(r'[A-Z]', formula))) # find all the letters with uppercase as one string
-    letters_parse = ', '.join(letters) # separate one string (word) to separate letters
+    letters = ''.join(set(re.findall(r'[A-Z]', formula))) # find all the letters with uppercase as one string-->'MUOEY'
+    letters_parse = ', '.join(letters) # separate one string (word) to separate letters -->'M, U, O, E, Y'
     tokens = map(compile_word, re.split('([A-Z]+)', formula)) # re.split('([A-Z]+)', formula))-->['YOU','==','ME','**2']
     body = ''.join(tokens) # body: '(1*U+10*O+100*Y) == (1*E+10*M)**2'
     f = 'lambda %s: %s' % (letters_parse, body) # f='lambda M, U, O, E, Y: (1*U+10*O+100*Y) == (1*E+10*M)**2'
     if verbose: print(f)
     # eval() input is expression: the string parsed and evaluated as a Python expression
     return eval(f), letters
-
 
 
 def timedcall(fn, *args):
