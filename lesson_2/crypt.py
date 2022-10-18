@@ -6,14 +6,15 @@
 # output should be a string with the digits filled in, or None if the
 # problem is not solvable.
 #
-# Note that you will not be able to run your code yet since the 
-# program is incomplete. Please SUBMIT to see if you are correct.
+
 
 import string, re, itertools, time
 
+# version 1
+"""
 def solve(formula):
-    """Given a formula like 'ODD + ODD == EVEN', fill in digits to solve it.
-    Input formula is a string; output is a digit-filled-in string or None."""
+    # Given a formula like 'ODD + ODD == EVEN', fill in digits to solve it.
+    # Input formula is a string; output is a digit-filled-in string or None.
     # Your code here
     for f in fill_in(formula):
         if valid(f):
@@ -32,29 +33,18 @@ def solve(formula):
 # inclusion of yield in a function definition makes it return a generator.
 
 def fill_in(formula):
-    """Generate all possible fillings-in of letters in formula with digits.
-    Example: 
-    formula = "ODD + ODD = EVEN"
-    letters = 'DOEVN'
-    '[A-Z]': only upper case
-    '[a-zA-z]': all the letters
-    """
+    # Generate all possible fillings-in of letters in formula with digits.
+    # Example: 
+    # formula = "ODD + ODD = EVEN"
+    # letters = 'DOEVN'
+    # '[A-Z]': only upper case
+    # '[a-zA-z]': all the letters
+
     letters = ''.join(set(re.findall(r'[A-Z]', formula))) #should be a string
     for digits in itertools.permutations('1234567890', len(letters)):# permutations: combination without same numbers
         table = str.maketrans(letters, ''.join(digits)) # return the mapping table
         yield formula.translate(table) # replace characters
 
-# Write a function, compile_word(word), that compiles a word
-# of UPPERCASE letters as numeric digits. For example:
-# compile_word('YOU') => '(1*U + 10*O +100*Y)' 
-# Non-uppercase words should remain unchaged.
-
-def compile_word(word):
-    """Compile a word of uppercase letters as numeric digits.
-    E.g., compile_word('YOU') => '(1*U+10*O+100*Y)'
-    Non-uppercase words unchanged: compile_word('+') => '+'"""
-    # Your code here.
-    
 def valid(f):
     "Formula f is valid if it has no numbers with leading zero and evals true."
     # The eval() function evaluates the specified expression, if the expression 
@@ -68,6 +58,77 @@ def valid(f):
         # ArithmeticError is the upper level of zeroDivisionError
         ## your code here
         return False
+"""
+
+#version 2 - faster solution
+def solve(formula):
+    """Input formula is a string;output is a digit-filled-in string or None.
+    this version precompiles the formula; only one eval per formula."""
+    f, letters = compile_formula(formula) #should be a string
+    for digits in itertools.permutations((1,2,3,4,5,6,7,8,9,0), len(letters)):# permutations: combination without same numbers
+        try:
+            if f(*digits) is True:
+                table = str.maketrans(letters, ''.join(map(str,digits))) 
+                return formula.translate(table)
+        except ArithmeticError:
+            pass
+
+
+# Write a function, compile_word(word), that compiles a word
+# of UPPERCASE letters as numeric digits. For example:
+# compile_word('YOU') => '(1*U + 10*O +100*Y)' 
+# Non-uppercase words should remain unchaged.
+#
+# You can create strings and use %s inside that string which acts like a placeholder. 
+# Then you can write % followed be the actual string value you want to use.
+# E.g. print("Hi, my name is %s." % "Jessica")-->Hi, my name is Jessica.
+#
+# Python 3 introduced str.format() along with formatted string literals. 
+# basic syntax: "template string {}".format(arguments)
+# Inside the template string, we can use {} which act as placeholders for the arguments. 
+# The arguments are values that will be displayed in the string. 
+# E.g. print("Hi, my name is {}.".format("Jessica"))
+#
+# enumerate() method adds counter to an iterable and returns it. The returned object is an enumerate object.
+# You can convert enumerate objects to list and tuple using list() and tuple() method respectively.
+# E.g. grocery = ['bread', 'milk', 'butter']-->print(list(enumerateGrocery))-->
+# [(0, 'bread'), (1, 'milk'), (2, 'butter')]
+#
+# reverse the string: word[::-1]. The slice statement [::-1] means start at the end of the string and 
+# end at position 0, move with the step -1, negative one, which means one step backwards.
+#
+# another option: The reversed() function allows us to process the items in a sequence in reverse order. 
+# It accepts a sequence and returns an iterator. A sequence list string, list, tuple etc.
+
+def compile_word(word):
+    """Compile a word of uppercase letters as numeric digits.
+    E.g., compile_word('YOU') => '(1*U+10*O+100*Y)'
+    Non-uppercase words unchanged: compile_word('+') => '+'"""
+    # Your code here.
+    if word.isupper():
+        # generate list of strings. e.g. ['1*U', '10*o', '100*Y']
+        word_formed = ['{}*{}'.format(10**i, letter) for (i, letter) in enumerate(reversed(word))]
+        return '(' + "+".join(word_formed) + ')' # output: '(1*U+10*O+100*Y)'
+    else:
+        return word
+
+def compile_formula(formula, verbose=False):
+    """
+    Compile formula into a function. Also return letters found,
+    as a str, in same order as parameters of function. For example,
+    'YOU == ME**2' returns 
+    (Lambda Y, M, E, U, O: (U+10*O+100*Y) == (E+10*M)**2), 'YMEUO'
+    lambda syntax-->lambda arguments : expression
+
+    """
+    letters = ''.join(set(re.findall(r'[A-Z]', formula))) # find all the letters with uppercase as one string
+    letters_parse = ', '.join(letters) # separate one string (word) to separate letters
+    tokens = map(compile_word, re.split('([A-Z]+)', formula)) # re.split('([A-Z]+)', formula))-->['YOU','==','ME','**2']
+    body = ''.join(tokens) # body: '(1*U+10*O+100*Y) == (1*E+10*M)**2'
+    f = 'lambda %s: %s' % (letters_parse, body) # f='lambda M, U, O, E, Y: (1*U+10*O+100*Y) == (1*E+10*M)**2'
+    if verbose: print(f)
+    # eval() input is expression: the string parsed and evaluated as a Python expression
+    return eval(f), letters
 
 
 
