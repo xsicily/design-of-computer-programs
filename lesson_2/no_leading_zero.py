@@ -16,7 +16,7 @@ def compile_formula(formula, verbose=False):
     number can't be 0. So if YOU is a word in the formula, and the function
     is called with Y eqal to 0, the function should return False.
     formula: 'YOU == ME**2'
-    Lambda Y, M, E, U, O: (U+10*O+100*Y) == (E+10*M)**2 and (Y != 0 and M != 0)
+    f output: 'Lambda Y, M, E, U, O: (U+10*O+100*Y) == (E+10*M)**2 and (Y != 0 and M != 0)'
     """
     
     # modify the code in this function.
