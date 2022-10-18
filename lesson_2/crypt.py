@@ -7,7 +7,6 @@
 # problem is not solvable.
 #
 
-
 import string, re, itertools, time
 
 # version 1
